@@ -15,6 +15,7 @@ class AddPostIdToCommentsTable extends Migration
     {
         Schema::table('comments', function (Blueprint $table){
             $table->integer('post_id')->nullable();
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
