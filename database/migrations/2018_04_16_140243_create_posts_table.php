@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('content');
             $table->string('annonymous_comments');
             $table->softDeletes()->nullable();
+            $table->string('slug')->unique();
         });
     }
 
