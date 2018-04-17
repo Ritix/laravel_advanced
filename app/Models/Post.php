@@ -11,6 +11,7 @@ class Post extends Model
 
     protected $fillable = [
         'created_at',
+        'updated_at',
         'title',
         'content',
         'annonymous_comments',
@@ -19,9 +20,18 @@ class Post extends Model
         'slug',
     ];
 
+    public $timestamps = ['created_at', 'updated_at', 'deleted_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
+
+
 

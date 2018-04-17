@@ -11,6 +11,7 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +25,8 @@ class User extends Authenticatable
         'deleted_at',
         'role_id',
     ];
+
+    public $timestamps = ['created_at', 'deleted_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -42,7 +45,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->hasMany(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function posts()

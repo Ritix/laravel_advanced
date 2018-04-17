@@ -17,8 +17,15 @@ $factory->define(App\Models\Comment::class, function (Faker $faker) {
     return [
         'created_at' => $faker->dateTime,
         'content' => $faker->text,
-        'user_id' => factory(\App\Models\User::class)->create()->id,
-        'post_id' => factory(\App\Models\Post::class)->create()->id,
         'deleted_at' => $faker->dateTime,
     ];
 });
+
+$factory
+    ->state(\App\Models\Post::class, 'with_comments', [])
+    ->afterCreatingState(\App\Models\Post::class, 'with_comments', function ($post, $faker) {
+        factory(\App\Models\Comment::class, random_int(0, 50))->create([
+            'post_id' => $post->id,
+            'user_id' => \App\Models\User::InRandomOrder()->first()->id,
+        ]);
+    });

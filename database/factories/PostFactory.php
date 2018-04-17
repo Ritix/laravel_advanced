@@ -18,9 +18,18 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
         'created_at' => $faker->dateTime,
         'title' => $faker-> text(50),
         'content' => $faker->text,
-        'annonymous_comments' => $faker->text,
-        'user_id' => factory(\App\Models\User::class)->create()->id,
+        'annonymous_comments' => $faker->boolean,
+//        'user_id' => factory(\App\Models\User::class)->create()->id,
         'deleted_at' => $faker->dateTime,
         'slug' => $faker->slug,
     ];
 });
+
+
+$factory
+    ->state(\App\Models\User::class, 'with_posts', [])
+    ->afterCreatingState(\App\Models\User::class, 'with_posts', function ($user, $faker) {
+        factory(\App\Models\Post::class, random_int(0, 5))->states('with_comments')->create([
+            'user_id' => $user->id,
+        ]);
+    });

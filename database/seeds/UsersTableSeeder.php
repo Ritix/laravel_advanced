@@ -11,6 +11,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\User::class, 30)->create();
+        factory(\App\Models\User::class, 50)->states(['with_posts', 'with_profile'])->create();
     }
 }

@@ -11,6 +11,8 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Role::class, 30)->create();
+        \App\Models\Role::create(['name' => 'Admin']);
+        \App\Models\Role::create(['name' => 'Moderator']);
+        \App\Models\Role::create(['name' => 'User']);
     }
 }
