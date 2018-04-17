@@ -17,9 +17,11 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('title');
-            $table->string('content');
-            $table->string('annonymous_comments');
-            $table->softDeletes()->nullable();
+            $table->longText('content');
+            $table->boolean('annonymous_comments');
+            $table->softDeletes();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('slug')->unique();
         });
     }
